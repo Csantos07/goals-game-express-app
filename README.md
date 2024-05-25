@@ -169,6 +169,7 @@ Example response:
 
 - Initial release of the Goals Game API.
 - Added endpoints for creating and retrieving goals.
+- Added README
 
 ## Next Changes
 
