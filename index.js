@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -13,6 +14,12 @@ const knex = require('knex')({
     password: process.env.DB_PASSWORD || 'password',
     database: process.env.DB_NAME || 'goals',
     ssl: process.env.DB_SSL === 'true'
+  },
+  migrations: {
+    directory: './migrations'
+  },
+  seeds: {
+    directory: './seeds'
   }
 });
 

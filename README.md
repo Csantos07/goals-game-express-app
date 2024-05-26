@@ -173,7 +173,6 @@ Example response:
 
 ## Next Changes
 
-- Add Readme
 - Create migration to create goals table
 - Create a seeds file to create sample data
 
