@@ -10,8 +10,8 @@ exports.seed = async function (knex) {
       title: 'Read 10 pages or for 30 min',
       description: '',
       points: 10,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -20,8 +20,8 @@ exports.seed = async function (knex) {
       title: 'Run outside',
       description: '',
       points: 20,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -30,8 +30,8 @@ exports.seed = async function (knex) {
       title: 'Evening and morning prayer',
       description: '',
       points: 5,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -40,8 +40,8 @@ exports.seed = async function (knex) {
       title: 'Call and be sweet to parents',
       description: '',
       points: 15,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -50,8 +50,8 @@ exports.seed = async function (knex) {
       title: 'Evening time block',
       description: '',
       points: 10,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -60,8 +60,8 @@ exports.seed = async function (knex) {
       title: 'Resume and apply to QA and software jobs',
       description: '',
       points: 30,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -70,8 +70,8 @@ exports.seed = async function (knex) {
       title: 'LinkedIn',
       description: '',
       points: 10,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     },
     {
@@ -80,8 +80,8 @@ exports.seed = async function (knex) {
       title: 'Go through clothes and shoes',
       description: '',
       points: 20,
-      startDate: knex.fn.now(),
-      endDate: null,
+      start_date: knex.fn.now(),
+      end_date: null,
       complete: false,
     }
   ]);

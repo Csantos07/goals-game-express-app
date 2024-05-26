@@ -86,7 +86,7 @@ The Fields are subject to change
 5. Run seeds (if applicable):
 
    ```sh
-   npx knex migrate:latest
+   npx knex seed:run
    ```
 
 6. Start the server:
