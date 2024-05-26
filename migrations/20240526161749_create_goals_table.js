@@ -9,8 +9,8 @@ exports.up = function (knex) {
     table.string('title').notNullable(); // Title of the goal
     table.text('description'); // Description of the goal
     table.integer('points').notNullable(); // Points assigned to the goal
-    table.date('startDate').notNullable(); // Start date of the goal
-    table.date('endDate'); // End date of the goal
+    table.date('start_date').notNullable(); // Start date of the goal
+    table.date('end_date'); // End date of the goal
     table.boolean('complete').notNullable().defaultTo(false); // Completion status
     table.timestamps(true, true); // createdAt and updatedAt columns
   });
