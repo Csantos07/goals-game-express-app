@@ -1,20 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const knexConfig = require('./knexfile');
+const knex = require('knex');
 
 // Load environment variables from .env file
 dotenv.config();
 
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_NAME || 'goals',
-    ssl: process.env.DB_SSL === 'true'
-  }
-});
+const environment = process.env.NODE_ENV || 'development';
+const config = knexConfig[environment];
+const db = knex(config);
 
 const app = express();
 const port = 3000;
@@ -25,7 +20,7 @@ app.use(bodyParser.json());
 app.get('/goals', async (req, res) => {
   try {
     // Retrieve all goals from the database
-    const goals = await knex.select().from('goals');
+    const goals = await db.select().from('goals');
     res.json(goals);
   } catch (error) {
     console.error('Error retrieving goals:', error);
@@ -43,7 +38,7 @@ app.post('/goals', async (req, res) => {
 
   try {
     // Insert new goal into the database
-    const newGoal = await knex('goals').insert({
+    const newGoal = await db('goals').insert({
       category,
       title,
       description,
