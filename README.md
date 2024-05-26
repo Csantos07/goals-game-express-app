@@ -46,8 +46,8 @@ The Fields are subject to change
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (version 18 or later recommended)
-- [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/) (v20.13.1)
+- [npm](https://www.npmjs.com/) (10.5.2)
 - [PostgreSQL](https://www.postgresql.org/)
 
 ### Installation
@@ -83,13 +83,19 @@ The Fields are subject to change
    npx knex migrate:latest
    ```
 
-5. Start the server:
+5. Run seeds (if applicable):
+
+   ```sh
+   npx knex migrate:latest
+   ```
+
+6. Start the server:
 
    ```sh
    npm start
    ```
 
-6. The server should now be running at `http://localhost:3000`.
+7. The server should now be running at `http://localhost:3000`.
 
 ## Usage
 
