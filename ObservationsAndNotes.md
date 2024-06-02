@@ -1,4 +1,7 @@
-I left off working on the seeds for goals.
+All Crud capabilites are now finished.
+I think I'll go back and look at the robust server architecture section from thinkful/chegg
+and consider how i will tie goals to users.
+
 Goals are not yet tied to Users...
 We will do some foreign key stuff.
 
@@ -9,5 +12,3 @@ I think we have completed the seeds for goals at this point. Contemplating tying
 Perhaps we should review some of the Thinkful content in this section.
 
 Foreign Keys Relationships and the like
-
-Before tying to a user lets create the rest of our CRUD functionality
