@@ -1,23 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const knexConfig = require('./knexfile');
-const knex = require('knex');
+const db = require('../db/connection');
 
-// Load environment variables from .env file
-dotenv.config();
+// Still need to implement validation and error handling
 
-const environment = process.env.NODE_ENV || 'development';
-const config = knexConfig[environment];
-const db = knex(config);
-
-const app = express();
-const port = 3000;
-
-app.use(bodyParser.json());
-
-// Define a route to retrieve all goals
-app.get('/goals', async (req, res) => {
+async function list(req, res) {
   try {
     // Retrieve all goals from the database
     const goals = await db.select().from('goals');
@@ -26,10 +11,9 @@ app.get('/goals', async (req, res) => {
     console.error('Error retrieving goals:', error);
     res.status(500).json({ error: 'Failed to retrieve goals' });
   }
-});
+}
 
-// Get a single goal by ID
-app.get('/goals/:id', async (req, res) => {
+async function read(req, res) {
   const { id } = req.params;
 
   try {
@@ -46,13 +30,14 @@ app.get('/goals/:id', async (req, res) => {
     console.error('Error retrieving goal:', error);
     res.status(500).json({ error: 'Failed to retrieve goal' });
   }
-});
+}
 
-
-app.post('/goals', async (req, res) => {
+// Create a new goal
+async function create(req, res) {
   const { category, title, description, points, start_date, end_date, complete } = req.body;
 
   // Validate the input
+  // Sample Validation
   if (!category || !title || !description || !points) {
     return res.status(400).json({ error: 'Category, title, and points are required' });
   }
@@ -74,14 +59,16 @@ app.post('/goals', async (req, res) => {
     console.error('Error creating goal:', error);
     res.status(500).json({ error: 'Failed to create goal' });
   }
-});
+}
+
 
 // Update a goal by ID
-app.put('/goals/:id', async (req, res) => {
+async function update(req, res) {
   const { id } = req.params;
   const { category, title, description, points, start_date, end_date, complete } = req.body;
 
-  // // Validate the input
+  // Validate the input
+  // Sample Validation
   // if (!category || !title || !description || !points) {
   //   return res.status(400).json({ error: 'Category, title, and points are required' });
   // }
@@ -103,10 +90,10 @@ app.put('/goals/:id', async (req, res) => {
     console.error('Error updating goal:', error);
     res.status(500).json({ error: 'Failed to update goal' });
   }
-});
+}
 
 // Delete a goal by ID
-app.delete('/goals/:id', async (req, res) => {
+async function destroy(req, res) {
   const { id } = req.params;
 
   console.log('id:', id);
@@ -125,10 +112,14 @@ app.delete('/goals/:id', async (req, res) => {
     console.error('Error deleting goal:', error);
     res.status(500).json({ error: 'Failed to delete goal' });
   }
-});
+}
 
 
-// Start the Express server
-app.listen(port, () => {
-  console.log(`Server is listening at http://localhost:${port}`);
-});
+
+module.exports = {
+  list,
+  read,
+  create,
+  update,
+  destroy
+}
