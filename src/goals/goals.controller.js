@@ -1,11 +1,10 @@
-const db = require('../db/connection');
-
 // Still need to implement validation and error handling
+const goalsService = require('./goals.service');
 
 async function list(req, res) {
   try {
     // Retrieve all goals from the database
-    const goals = await db.select().from('goals');
+    const goals = await goalsService.list();
     res.json(goals);
   } catch (error) {
     console.error('Error retrieving goals:', error);
@@ -18,7 +17,7 @@ async function read(req, res) {
 
   try {
     // Retrieve the goal with the specified ID from the database
-    const goal = await db('goals').where({ id }).first();
+    const goal = await goalsService.read(id);
 
     // Check if the goal exists
     if (!goal) {
@@ -44,7 +43,7 @@ async function create(req, res) {
 
   try {
     // Insert new goal into the database
-    const newGoal = await db('goals').insert({
+    const newGoal = await goalsService.create({
       category,
       title,
       description,
@@ -52,7 +51,7 @@ async function create(req, res) {
       start_date,
       end_date,
       complete
-    }).returning('*');
+    });
 
     res.status(201).json(newGoal);
   } catch (error) {
@@ -75,11 +74,7 @@ async function update(req, res) {
 
   try {
     // Update the goal with the specified ID in the database
-    const updatedGoal = await db('goals')
-      .where({ id })
-      .update({ category, title, description, points, start_date, end_date, complete })
-      .returning('*');
-
+    const updatedGoal = await goalsService.update(id, { category, title, description, points, start_date, end_date, complete })
     // Check if the goal was updated successfully
     if (!updatedGoal.length) {
       return res.status(404).json({ error: 'Goal not found' });
@@ -100,7 +95,7 @@ async function destroy(req, res) {
 
   try {
     // Delete the goal with the specified ID from the database
-    const deletedCount = await db('goals').where({ id }).del();
+    const deletedCount = await goalsService.destroy(id);
 
     // Check if a goal was deleted
     if (!deletedCount) {
