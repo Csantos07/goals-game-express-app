@@ -20,10 +20,24 @@ function destroy(id) {
   return db('goals').where({ id }).del();
 }
 
+function createGoalForUser(userId, goal) {
+  return db.transaction(async trx => {
+    const [newGoal] = await trx('goals')
+      .insert(goal)
+      .returning('*');
+
+    await trx('users_goals').insert({
+      user_id: userId,
+      goal_id: newGoal.id
+    });
+  });
+}
+
 module.exports = {
   list,
   read,
   create,
   update,
-  destroy
+  destroy,
+  createGoalForUser
 }

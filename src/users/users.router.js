@@ -13,4 +13,8 @@ router
   .patch(controller.update)
   .delete(controller.destroy);
 
+router
+  .route("/:id/goals")
+  .post(controller.createGoalForUser);
+
 module.exports = router;

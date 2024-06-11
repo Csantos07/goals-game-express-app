@@ -1,4 +1,5 @@
 const usersService = require('./users.service');
+const goalsService = require('../goals/goals.service');
 
 async function list(req, res) {
   try {
@@ -84,10 +85,33 @@ async function destroy(req, res) {
   }
 }
 
+async function createGoalForUser(req, res) {
+  const { id } = req.params;
+  const { title, description, category, points, start_date, end_date, complete } = req.body;
+
+  try {
+    await goalsService.createGoalForUser(id, {
+      title,
+      description,
+      category,
+      points,
+      start_date,
+      end_date,
+      complete
+    });
+
+    res.status(201).json({ message: 'Goal created for user' });
+  } catch (error) {
+    console.error('Error creating goal for user:', error);
+    res.status(500).json({ error: 'Failed to create goal for user' });
+  }
+}
+
 module.exports = {
   list,
   read,
   create,
   update,
-  destroy
+  destroy,
+  createGoalForUser
 };
