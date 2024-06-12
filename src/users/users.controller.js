@@ -107,11 +107,40 @@ async function createGoalForUser(req, res) {
   }
 }
 
+async function listUsersWithGoals(req, res) {
+  try {
+    const users = await usersService.listUsersWithGoals();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error retrieving users with goals:', error);
+    res.status(500).json({ error: 'Failed to retrieve users with goals' });
+  }
+}
+
+async function listGoalsForUser(req, res) {
+  const { id } = req.params;
+
+  try {
+    const goals = await usersService.listGoalsForUser(id);
+
+    if (!goals) {
+      return res.status(404).json({ error: 'Goals not found' });
+    }
+
+    res.status(200).json(goals);
+  } catch (error) {
+    console.error('Error retrieving goals for user:', error);
+    res.status(500).json({ error: 'Failed to retrieve goals for user' });
+  }
+}
+
 module.exports = {
   list,
   read,
   create,
   update,
   destroy,
-  createGoalForUser
+  createGoalForUser,
+  listUsersWithGoals,
+  listGoalsForUser
 };
