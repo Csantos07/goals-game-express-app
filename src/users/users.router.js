@@ -8,13 +8,20 @@ router
   .post(controller.create);
 
 router
+  .route("/goals")
+  .get(controller.listUsersWithGoals);
+
+router
+  .route("/:id/goals")
+  .get(controller.listGoalsForUser)
+  .post(controller.createGoalForUser);
+
+router
   .route("/:id")
   .get(controller.read)
   .patch(controller.update)
   .delete(controller.destroy);
 
-router
-  .route("/:id/goals")
-  .post(controller.createGoalForUser);
+
 
 module.exports = router;
